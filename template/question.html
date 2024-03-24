@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" style="position: relative;
+    min-height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/bootstrap/bootstrap.css" rel="stylesheet">
+    <script src="../static/bootstrap/bootstrap.bundle.js"></script>
+    <title>Document</title>
+</head>
+<body style="height: 100%;">
+<nav class="navbar navbar-light">
+    <div class="container-sm-fluid container-lg">
+        <h1>AskPupkin</h1>
+        <form class="d-flex" role="search">
+            <input
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+            />
+            <button class="btn btn-success" type="submit">Ask!</button>
+        </form>
+
+        <div class="d-flex justify-content-between gap-3">
+            <img src="../static/img/empty_avatar.jpg" class="rounded" width="50" height="50"/>
+            <div class="d-flex flex-column justify-content-between">
+                <div>Dr. Pepper</div>
+                <div>
+                    <a class="pe-2" href="./settings.html">settings</a>
+                    <a class="pe-2" href="./logout.html">log out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<hr class="m-0" style="border-width: 3px;">
+
+<main class="container-fluid container-lg mt-3" style="padding-bottom: 80px;">
+
+    <div class="row">
+        <div class="col-8">
+            <article class="mb-3 border-0">
+                <div class="row g-0">
+                    <div class="col-3">
+                        <div class="w-100 mb-3">
+                            <img
+                                    src="../static/img/empty_avatar.jpg"
+                                    class="img-fluid rounded"
+                                    alt="..."
+                            />
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <input type="number" value="5" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col my-0 ps-4">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <h3 class="mb-3">Question?</h3>
+                            </h5>
+                            <p class="card-text">
+                                This is a wider card with supporting text below as a natural
+                                lead-in to additional content. This content is a little bit
+                                longer.
+                            </p>
+                            <div class="row">
+                                <div class="col-8">
+                                    <span>Tags: </span>
+                                    <a href="./tag.html">tag</a>
+                                    <a href="./tag.html">tag</a>
+                                    <a href="./tag.html">tag</a>
+                                    <a href="./tag.html">tag</a>
+                                    <a href="./tag.html">tag</a>
+                                    <a href="./tag.html">tag</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <hr style="border-width: 3px;">
+            <article class="card mb-3 w-100">
+                <div class="row g-0">
+                    <div class="col-2 p-2">
+                        <div class="w-100 mb-3">
+                            <img
+                                    src="../static/img/empty_avatar.jpg"
+                                    class="img-fluid rounded"
+                                    alt="..."
+                            />
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <input type="number" value="5" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card-body me-5">
+                            <p class="card-text">
+                                This is a wider card with supporting text below as a natural
+                                lead-in to additional content. This content is a little bit
+                                longer.
+                            </p>
+                            <div class="row mx-0">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                                    <label class="form-check-label" for="flexCheckDefault1">
+                                        Correct!
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+            <article class="card mb-3 w-100">
+                <div class="row g-0">
+                    <div class="col-2 p-2">
+                        <div class="w-100 mb-3">
+                            <img
+                                    src="../static/img/empty_avatar.jpg"
+                                    class="img-fluid rounded"
+                                    alt="..."
+                            />
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <input type="number" value="5" class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card-body me-5">
+                            <p class="card-text">
+                                This is a wider card with supporting text below as a natural
+                                lead-in to additional content. This content is a little bit
+                                longer.
+                            </p>
+                            <div class="row mx-0">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2">
+                                    <label class="form-check-label" for="flexCheckDefault2">
+                                        Correct!
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <hr style="border-width: 3px;">
+
+            <div class="mb-3">
+                <textarea class="form-control" id="FormAnswer" placeholder="Enter your answer here.."
+                          rows="4"></textarea>
+            </div>
+            <div class="mb-3 mt-4">
+                <button type="submit" class="btn btn-outline-primary">Ask!</button>
+            </div>
+            <nav aria-label="Page navigation" class="mt-4">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" href="#">Previous</a>
+                    </li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="col-4" style="margin-top: 4rem;">
+            <h2>Popular Tags</h2>
+            <div class="row">
+                <div class="col">
+                    <span class="badge text-bg-primary me-2 mb-2">perl</span>
+                    <span class="badge text-bg-secondary me-2 mb-2">python</span>
+                    <span class="badge text-bg-success me-2 mb-2">TechnoPark</span>
+                    <span class="badge text-bg-danger me-2 mb-2">MySQL</span>
+                    <span class="badge text-bg-warning me-2 mb-2">django</span>
+                    <span class="badge text-bg-info me-2 mb-2">Mail.Ru</span>
+                    <span class="badge text-bg-light me-2 mb-2">Voloshin</span>
+                    <span class="badge text-bg-dark me-2 mb-2">Firefox</span>
+                </div>
+            </div>
+            <h2 class="mt-5">Best Members</h2>
+            <div>
+                <a href="./member.html" class="d-block mb-2">Mr. Freeman</a>
+                <a href="./member.html" class="d-block mb-2">Dr. House</a>
+                <a href="./member.html" class="d-block mb-2">Bender</a>
+                <a href="./member.html" class="d-block mb-2">Queen Victoria</a>
+                <a href="./member.html" class="d-block mb-2">V. Pupkin</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top"
+        style="position: absolute; bottom:0; width: 100%; background-color: #F3F3F3">
+        <p class="col-md-4 mb-0 text-muted px-4">&copy; 2024 Company, Inc</p>
+        <ul class="nav col-md-4 justify-content-end px-4">
+            <li class="nav-item"><a href="./index.html" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="./ask.html" class="nav-link px-2 text-muted">Ask</a></li>
+            <li class="nav-item"><a href="./login.html" class="nav-link px-2 text-muted">Log In</a></li>
+            <li class="nav-item"><a href="./register.html" class="nav-link px-2 text-muted">Register</a></li>
+        </ul>
+</footer>
+
+</body>
+</html>

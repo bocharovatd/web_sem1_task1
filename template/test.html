@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8" style="position: relative;
+    min-height: 100%;">
+<style>
+    /* общие стили */
+* {
+    margin: 0;
+    padding: 0;
+}
+html { /* прижать footer к низу */
+    position: relative;
+    min-height: 100%;
+}
+body {
+    font: 14px/1.2 Arial, sans-serif;
+    color: #000;
+    background: #eee;
+    /* прижать footer к низу */
+    height: 100%;
+}
+.wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+/* шапка */
+header {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px;
+    font-weight: bold;
+    background: #fff;
+}
+/* основной контент */
+body > .wrapper {
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* прижать footer к низу */
+    padding-bottom: 40px;
+}
+    body > .wrapper > article, body > .wrapper > aside {
+        box-sizing: border-box;
+        padding: 10px;
+        background: #fff;
+    }
+    body > .wrapper > article {
+        float: left;
+        width: 68%;
+    }
+    body > .wrapper > aside {
+        float: right;
+        width: 30%;
+    }
+        body > .wrapper > article > h1, body > .wrapper > article > p,
+        body > .wrapper > aside > h2, body > .wrapper > aside > p {
+            margin: 10px 0;
+        }
+/* подвал */
+footer {
+    box-sizing: border-box;
+    height: 40px;
+    padding: 10px;
+    background: #fff;
+    /* прижать footer к низу */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+</style>
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            Логотип и слоган
+        </div>
+    </header>
+    <div class="wrapper">
+        <article>
+            <h1>Lorem ipsum dolor sit amet</h1>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...
+            </p>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...
+            </p>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore...
+            </p>
+        </article>
+        <aside>
+            <h2>Lorem ipsum</h2>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...
+            </p>
+            <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor...
+            </p>
+        </aside>
+    </div>
+    <footer>
+        <div class="wrapper">
+            © Copyright. All rights reserved
+        </div>
+    </footer>
+</body>
+</html>

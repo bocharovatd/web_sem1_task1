@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en" style="position: relative;
+    min-height: 100%;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/bootstrap/bootstrap.css" rel="stylesheet">
+    <script src="../static/bootstrap/bootstrap.bundle.js"></script>
+    <title>Document</title>
+</head>
+<body style="height: 100%;">
+<nav class="navbar navbar-light">
+    <div class="container-sm-fluid container-lg">
+        <h1>AskPupkin</h1>
+        <form class="d-flex" role="search">
+            <input
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+            />
+            <button class="btn btn-success" type="submit">Ask!</button>
+        </form>
+
+        <div class="d-flex justify-content-between gap-3">
+            <img src="../static/img/empty_avatar.jpg" class="rounded" width="50" height="50"/>
+            <div class="d-flex flex-column justify-content-between">
+                <div>Dr. Pepper</div>
+                <div>
+                    <a class="pe-2" href="./settings.html">settings</a>
+                    <a class="pe-2" href="./logout.html">log out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<hr class="m-0" style="border-width: 3px;">
+
+<main class="container-fluid container-lg mt-3" style="padding-bottom: 80px;">
+    <div class="d-flex gap-3 align-items-center mb-3">
+        <h2>Registration</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div class="col-9 alert alert-danger p-0" style="background-color: white; border: 0;" role="alert">
+                A simple light alert—check it out!
+            </div>
+            <div class="row mb-3">
+                <div class="col-3">
+                    <label for="FormLogin" class="form-label">Login</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" id="FormLogin" placeholder="dr_pepper">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3">
+                    <label for="FormEmail" class="form-label">Email</label>
+                </div>
+                <div class="col-6">
+                    <input type="email" class="form-control" id="FormEmail" placeholder="sr.pepper@mail.ru">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3">
+                    <label for="FormNickName" class="form-label">NickName</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" id="FormNickName" placeholder="Dr.Pepper">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3">
+                    <label for="FormPasssword" class="form-label">Password</label>
+                </div>
+                <div class="col-6">
+                    <input type="password" class="form-control" id="FormPasssword" placeholder="password">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3">
+                    <label for="FormRepeatPasssword" class="form-label">RepeatPassword</label>
+                </div>
+                <div class="col-6">
+                    <input type="password" class="form-control" id="FormRepeatPasssword" placeholder="password">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3">
+                    <label for="FormUploadAvatar" class="form-label">Upload avatar</label>
+                </div>
+                <div class="col-6">
+                    <div class="mb-3">
+                        <input class="form-control" type="file" id="FormUploadAvatar">
+                    </div>
+                </div>
+
+            </div>
+            <div class="row mb-3 mt-4">
+                <div class="col-3"></div>
+                <div class="col-6">
+                    <button type="submit" class="btn btn-outline-primary">Register!</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <h2>Popular Tags</h2>
+            <div class="row">
+                <div class="col">
+                    <span class="badge text-bg-primary me-2 mb-2">perl</span>
+                    <span class="badge text-bg-secondary me-2 mb-2">python</span>
+                    <span class="badge text-bg-success me-2 mb-2">TechnoPark</span>
+                    <span class="badge text-bg-danger me-2 mb-2">MySQL</span>
+                    <span class="badge text-bg-warning me-2 mb-2">django</span>
+                    <span class="badge text-bg-info me-2 mb-2">Mail.Ru</span>
+                    <span class="badge text-bg-light me-2 mb-2">Voloshin</span>
+                    <span class="badge text-bg-dark me-2 mb-2">Firefox</span>
+                </div>
+            </div>
+            <h2 class="mt-5">Best Members</h2>
+            <div>
+                <a href="./member.html" class="d-block mb-2">Mr. Freeman</a>
+                <a href="./member.html" class="d-block mb-2">Dr. House</a>
+                <a href="./member.html" class="d-block mb-2">Bender</a>
+                <a href="./member.html" class="d-block mb-2">Queen Victoria</a>
+                <a href="./member.html" class="d-block mb-2">V. Pupkin</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-2 border-top"
+        style="position: absolute; bottom:0; width: 100%; background-color: #F3F3F3">
+        <p class="col-md-4 mb-0 text-muted px-4">&copy; 2024 Company, Inc</p>
+        <ul class="nav col-md-4 justify-content-end px-4">
+            <li class="nav-item"><a href="./index.html" class="nav-link px-2 text-muted">Home</a></li>
+            <li class="nav-item"><a href="./ask.html" class="nav-link px-2 text-muted">Ask</a></li>
+            <li class="nav-item"><a href="./login.html" class="nav-link px-2 text-muted">Log In</a></li>
+            <li class="nav-item"><a href="./register.html" class="nav-link px-2 text-muted">Register</a></li>
+        </ul>
+</footer>
+
+</body>
+</html>
