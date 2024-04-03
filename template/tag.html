@@ -3,8 +3,7 @@
 {% block content %}
     <div class="col-8">
         <div class="d-flex gap-3 align-items-center mb-3">
-            <h2>New Questions</h2>
-            <a href="{% url 'hot' %}">Hot Questions</a>
+            <h2>Tag: {{ tag }}</h2>
         </div>
         {% for question in page_obj %}
             {% include "layouts/questions.html" with item=question %}
