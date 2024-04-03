@@ -1,11 +1,7 @@
-{% extends "layouts/base.html" %}
 {% load static %}
-
-{% block content %}
-    <div class="col-8">
-        <article class="mb-3 border-0">
+<article class="card mb-3 w-100">
             <div class="row g-0">
-                <div class="col-3">
+                <div class="col-2 p-2">
                     <div class="w-100 mb-3">
                         <img
                                 src="{% static 'img/empty_avatar.jpg' %}"
@@ -17,15 +13,16 @@
                         <input type="number" value="5" class="form-control"/>
                     </div>
                 </div>
-                <div class="col my-0 ps-4">
-                    <div class="card-body">
+                <div class="col">
+                    <div class="card-body me-5">
                         <h5 class="card-title">
-                            <h3 class="mb-3">{{ question.title }}</h3>
+                            <a href="{% url 'question' item.id %}">{{ item.title }}</a>
                         </h5>
                         <p class="card-text">
-                            {{ question.text }}
+                            {{ item.text }}
                         </p>
                         <div class="row">
+                            <a class="col-4" href="{% url 'question' item.id %}">answers (3)</a>
                             <div class="col-8">
                                 <span>Tags: </span>
                                 <a href="{% url 'tag' 'bender' %}">tag</a>
@@ -40,18 +37,3 @@
                 </div>
             </div>
         </article>
-        <hr style="border-width: 3px;">
-        {% for answer in answers %}
-            {% include "layouts/answers.html" with item=answer %}
-        {% endfor %}
-        <hr style="border-width: 3px;">
-        <div class="mb-3">
-                    <textarea class="form-control" id="FormAnswer" placeholder="Enter your answer here.."
-                              rows="4"></textarea>
-        </div>
-        <div class="mb-3 mt-4">
-            <button type="submit" class="btn btn-outline-primary">Ask!</button>
-        </div>
-        {% include "layouts/pagination.html" %}
-    </div>
-{% endblock %}

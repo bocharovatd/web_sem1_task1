@@ -1,0 +1,28 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" style="position: relative;
+    min-height: 100%;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'bootstrap/bootstrap.css' %}" rel="stylesheet">
+    <script src="{% static 'bootstrap/bootstrap.bundle.js' %}"></script>
+    <title>Document</title>
+</head>
+<body style="height: 100%;">
+
+{% include "layouts/navbar.html" %}
+
+<main class="container-fluid container-lg mt-3" style="padding-bottom: 80px;">
+    <div class="row">
+        {% block content %}
+        {% endblock %}
+        {% include "layouts/tags_members.html" %}
+    </div>
+</main>
+
+{% include "layouts/footer.html" %}
+
+</body>
+</html>

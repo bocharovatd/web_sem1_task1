@@ -1,0 +1,28 @@
+{% load static %}
+<nav class="navbar navbar-light">
+    <div class="container-sm-fluid container-lg">
+        <h1>AskPupkin</h1>
+        <form class="d-flex" role="search">
+            <input
+                    class="form-control me-2"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+            />
+            <button class="btn btn-success" type="submit">Ask!</button>
+        </form>
+
+        <div class="d-flex justify-content-between gap-3">
+            <img src="{% static 'img/empty_avatar.jpg' %}" class="rounded" width="50" height="50"/>
+            <div class="d-flex flex-column justify-content-between">
+                <div>Dr. Pepper</div>
+                <div>
+                    <a class="pe-2" href="{% url 'settings' %}">settings</a>
+                    <a class="pe-2" href="{% url 'login' %}">log out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<hr class="m-0" style="border-width: 3px;">
