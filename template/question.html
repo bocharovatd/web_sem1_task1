@@ -28,12 +28,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <span>Tags: </span>
-                                <a href="{% url 'tag' 'bender' %}">tag</a>
-                                <a href="{% url 'tag' 'bender' %}">tag</a>
-                                <a href="{% url 'tag' 'bender' %}">tag</a>
-                                <a href="{% url 'tag' 'bender' %}">tag</a>
-                                <a href="{% url 'tag' 'bender' %}">tag</a>
-                                <a href="{% url 'tag' 'bender' %}">tag</a>
+                                {% for tag in question.tag_set.all %}
+                                    <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+                                {% endfor  %}
                             </div>
                         </div>
                     </div>
@@ -41,7 +38,7 @@
             </div>
         </article>
         <hr style="border-width: 3px;">
-        {% for answer in answers %}
+        {% for answer in page_obj %}
             {% include "layouts/answers.html" with item=answer %}
         {% endfor %}
         <hr style="border-width: 3px;">

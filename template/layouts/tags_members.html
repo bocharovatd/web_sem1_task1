@@ -2,14 +2,16 @@
     <h2>Popular Tags</h2>
     <div class="row">
         <div class="col">
-            <span><a class="badge text-bg-primary me-2 mb-2" href="{% url 'tag' tags.0 %}">{{ tags.0 }}</a></span>
-            <span><a class="badge text-bg-success me-2 mb-2" href="{% url 'tag' tags.1 %}">{{ tags.1 }}</a></span>
-            <span><a class="badge text-bg-danger me-2 mb-2" href="{% url 'tag' tags.2 %}">{{ tags.2 }}</a></span>
-            <span><a class="badge text-bg-warning me-2 mb-2" href="{% url 'tag' tags.3 %}">{{ tags.3 }}</a></span>
-            <span><a class="badge text-bg-info me-2 mb-2" href="{% url 'tag' tags.4 %}">{{ tags.4 }}</a></span>
-            <span><a class="badge text-bg-dark me-2 mb-2" href="{% url 'tag' tags.5 %}">{{ tags.5 }}</a></span>
-            <span><a class="badge text-bg-danger me-2 mb-2" href="{% url 'tag' tags.6 %}">{{ tags.6 }}</a></span>
-            <span><a class="badge text-bg-warning me-2 mb-2" href="{% url 'tag' tags.7 %}">{{ tags.7 }}</a></span>
+            <a href="{% url 'tag' tags.0.name %}"><span class="badge text-bg-primary me-2 mb-2">{{ tags.0.name }}</span></a>
+            <a href="{% url 'tag' tags.1.name %}"><span class="badge text-bg-success me-2 mb-2">{{ tags.1.name }}</span></a>
+            <a href="{% url 'tag' tags.2.name %}"><span class="badge text-bg-danger me-2 mb-2">{{ tags.2.name }}</span></a>
+            <a href="{% url 'tag' tags.3.name %}"><span class="badge text-bg-warning me-2 mb-2">{{ tags.3.name }}</span></a>
+            <a href="{% url 'tag' tags.4.name %}"><span
+                    class="badge text-bg-info me-2 mb-2">{{ tags.4.name }}</span></a>
+            <a href="{% url 'tag' tags.5.name %}"><span
+                    class="badge text-bg-dark me-2 mb-2">{{ tags.5.name }}</span></a>
+            <a href="{% url 'tag' tags.6.name %}"><span class="badge text-bg-danger me-2 mb-2">{{ tags.6.name }}</span></a>
+            <a href="{% url 'tag' tags.7.name %}"><span class="badge text-bg-warning me-2 mb-2">{{ tags.7.name }}</span></a>
         </div>
     </div>
     <h2 class="mt-5">Best Members</h2>

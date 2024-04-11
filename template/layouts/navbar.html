@@ -13,16 +13,23 @@
         </form>
 
         <div class="d-flex justify-content-between gap-3">
-            <img src="{% static 'img/empty_avatar.jpg' %}" class="rounded" width="50" height="50"/>
-            <div class="d-flex flex-column justify-content-between">
+            {% if user %}
+                <img src="{% static 'img/empty_avatar.jpg' %}" class="rounded" width="50" height="50"/>
+                <div class="d-flex flex-column justify-content-between">
                 <div>Dr. Pepper</div>
                 <div>
                     <a class="pe-2" href="{% url 'settings' %}">settings</a>
                     <a class="pe-2" href="{% url 'login' %}">log out</a>
                 </div>
+            {% else %}
+                <div class=container" style="width: 70px"></div>
+                <div>
+                    <a class="pe-2" href="{% url 'login' %}">log in</a>
+                    <a class="pe-2" href="{% url 'register' %}">register</a>
+                </div>
+            {% endif %}
             </div>
         </div>
-    </div>
 </nav>
 
 <hr class="m-0" style="border-width: 3px;">

@@ -12,3 +12,5 @@ urlpatterns = [
     path('tag/<str:tag_name>/', views.tag, name='tag'),
     path('member/<str:member_name>/', views.member, name='member'),
 ]
+
+handler404 = 'app.views.error_404_view'
