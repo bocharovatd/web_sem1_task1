@@ -18,7 +18,7 @@
     <div class="row">
         {% block content %}
         {% endblock %}
-        {% include "layouts/tags_members.html" %}
+        {% include "layouts/tags_members.html" with tags=popular_tags%}
     </div>
 </main>
 

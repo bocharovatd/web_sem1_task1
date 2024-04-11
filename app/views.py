@@ -1,89 +1,100 @@
 # from django.http import HttpResponse
-from django.core.paginator import Paginator
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.shortcuts import render
-
-# Create your views here.
-QUESTIONS = [
-    {
-        "id": i,
-        "title": f"Question {i}",
-        "text": f"This is question number {i}"
-    } for i in range(100)
-]
-
-ANSWERS = [
-    [
-        {
-            "id": i,
-            "title": f"Answer {i}",
-            "text": f"This is answer number {j} on question {i}"
-        } for j in range(3)
-    ] for i in range(100)
-]
-
-BEST_MEMBERS = [
-    'Mr. Freeman', 'Dr. House', 'Bender', 'Queen Victoria', 'V. Pupkin'
-]
-
-TAGS = [
-    'perl', 'python', 'TechnoPark', 'MySQL', 'django', 'Mail.Ru', 'Voloshin', 'Firefox'
-]
+from app.models import *
 
 
 def func_paginator(page_num, items):
     paginator = Paginator(items, per_page=5)
-    if not (type(page_num) is int) or not (1 <= int(page_num) <= paginator.num_pages):
-        page_num = 1
-    page_obj = paginator.page(page_num)
+    try:
+        page_obj = paginator.page(page_num)
+    except (EmptyPage, InvalidPage):
+        page_obj = paginator.page(1)
     return page_obj
 
 
-def index(request):
-    page_obj = func_paginator(request.GET.get('page', 1), QUESTIONS)
+def index(request, user=None):
+    current_questions = Question.objects.get_current()
+    print(request.GET.get('page'))
+    page_obj = func_paginator(request.GET.get('page', 1), current_questions)
     return render(request, template_name="index.html",
-                  context={"page_obj": page_obj, "best_members": BEST_MEMBERS, "tags": TAGS})
+                  context={"page_obj": page_obj,
+                           "best_members": Profile.objects.get_top(),
+                           "popular_tags": Tag.objects.get_top(),
+                           "user": user})
     # return HttpResponse("Hello, world")
 
 
-def hot(request):
-    questions = QUESTIONS[:5]
-    page_obj = func_paginator(request.GET.get('page', 1), questions)
+def hot(request, user=None):
+    hot_questions = list(Question.objects.get_hot())
+    page_obj = func_paginator(request.GET.get('page', 1), hot_questions)
     return render(request, template_name="hot.html",
-                  context={"page_obj": page_obj, "best_members": BEST_MEMBERS, "tags": TAGS})
+                  context={"page_obj": page_obj,
+                           "best_members": Profile.objects.get_top(),
+                           "popular_tags": Tag.objects.get_top(),
+                           "user": user})
 
 
-def question(request, question_id):
-    item_question = QUESTIONS[question_id]
-    list_item_answers = ANSWERS[question_id]
+def question(request, question_id, user=None):
+    item_question = Question.objects.get(id=question_id)
+    list_item_answers = list(Answer.objects.filter(question=item_question).order_by('created_at').reverse())
     page_obj = func_paginator(request.GET.get('page', 1), list_item_answers)
     return render(request, template_name="question.html",
-                  context={"page_obj": page_obj, "question": item_question, "answers": list_item_answers,
-                           "best_members": BEST_MEMBERS,
-                           "tags": TAGS})
+                  context={"page_obj": page_obj,
+                           "question": item_question,
+                           "best_members": Profile.objects.get_top(),
+                           "popular_tags": Tag.objects.get_top(),
+                           "user": user})
 
 
-def ask(request):
-    return render(request, template_name="ask.html", context={"best_members": BEST_MEMBERS, "tags": TAGS})
+def ask(request, user=None):
+    return render(request, template_name="ask.html",
+                  context={"best_members": Profile.objects.get_top(),
+                           "popular_tags": Tag.objects.get_top(),
+                           "user": user})
 
 
 def login(request):
-    return render(request, template_name="login.html", context={"best_members": BEST_MEMBERS, "tags": TAGS})
+    user = None
+    return render(request, template_name="login.html",
+                  context={"best_members": Profile.objects.get_top(),
+                           "popular_tags": Tag.objects.get_top(),
+                           "user": user})
 
 
 def register(request):
-    return render(request, template_name="register.html", context={"best_members": BEST_MEMBERS, "tags": TAGS})
+    user = None
+    return render(request, template_name="register.html",
+                  context={"best_members": Profile.objects.get_top(),
+                           "popular_tags": Tag.objects.get_top(),
+                           "user": user})
 
 
-def settings(request):
-    return render(request, template_name="settings.html", context={"best_members": BEST_MEMBERS, "tags": TAGS})
+def settings(request, user=None):
+    return render(request, template_name="settings.html",
+                  context={"best_members": Profile.objects.get_top(),
+                           "popular_tags": Tag.objects.get_top(),
+                           "user": user})
 
 
-def tag(request, tag_name):
-    page_obj = func_paginator(request.GET.get('page', 1), QUESTIONS)
+def tag(request, tag_name, user=None):
+    tag_questions = list(Tag.objects.get(name=tag_name).questions.get_current())
+    page_obj = func_paginator(request.GET.get('page', 1), tag_questions)
     return render(request, template_name="tag.html",
-                  context={"tag": tag_name, "page_obj": page_obj, "best_members": BEST_MEMBERS, "tags": TAGS})
+                  context={"tag": tag_name,
+                           "page_obj": page_obj,
+                           "best_members": Profile.objects.get_top(),
+                           "popular_tags": Tag.objects.get_top(),
+                           "user": user})
 
 
-def member(request, member_name):
+def member(request, member_name, user=None):
     return render(request, template_name="member.html",
-                  context={"member": member_name, "best_members": BEST_MEMBERS, "tags": TAGS})
+                  context={"member": member_name,
+                           "best_members": Profile.objects.get_top(),
+                           "popular_tags": Tag.objects.get_top(),
+                           "user": user})
+
+
+def error_404_view(request, exception):
+    return render(request, '404.html')
