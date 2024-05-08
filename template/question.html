@@ -55,6 +55,13 @@
                           rows="{{ field.field.widget.attrs.rows }}"
                         {% if field.field.required %} required {% endif %}></textarea>
                 </div>
+                {% if field.errors %}
+                    <div class="list-unstyled text-danger">
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             {% endfor %}
             <div class="mb-3 mt-4">
                 <button type="submit" class="btn btn-outline-primary">Answer!</button>

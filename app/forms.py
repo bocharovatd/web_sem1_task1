@@ -82,7 +82,10 @@ class QuestionForm(forms.ModelForm):
 
     def clean_tags(self):
         tags = self.cleaned_data.get('tags')
-        tags = " ".join(map(lambda word: "".join(symb for symb in word if symb.isalpha()), tags.split()))
+        tags = list(map(lambda word: "".join(symb for symb in word if symb.isalpha()), tags.split()))
+        if len(tags) > 3:
+            raise ValidationError('Enter three and less tags')
+        tags = " ".join(tags)
         return tags
 
     def save(self, commit=True):
