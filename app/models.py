@@ -10,7 +10,7 @@ class ProfileManager(models.Manager):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(default='static/img/empty_avatar.jpg')
+    avatar = models.ImageField(upload_to='avatars/', default='avatars/default.jpg')
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     objects = ProfileManager()

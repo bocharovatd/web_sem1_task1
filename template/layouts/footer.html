@@ -4,7 +4,12 @@
     <ul class="nav col-md-4 justify-content-end px-4">
         <li class="nav-item"><a href="{% url 'index' %}" class="nav-link px-2 text-muted">Home</a></li>
         <li class="nav-item"><a href="{% url 'ask' %}" class="nav-link px-2 text-muted">Ask</a></li>
-        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link px-2 text-muted">Log In</a></li>
-        <li class="nav-item"><a href="{% url 'register' %}" class="nav-link px-2 text-muted">Register</a></li>
+        {% if request.user.is_authenticated %}
+            <li class="nav-item"><a href="{% url 'settings' %}" class="nav-link px-2 text-muted">Settings</a></li>
+            <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link px-2 text-muted">Log Out</a></li>
+        {% else %}
+            <li class="nav-item"><a href="{% url 'login' %}" class="nav-link px-2 text-muted">Log In</a></li>
+            <li class="nav-item"><a href="{% url 'signup' %}" class="nav-link px-2 text-muted">Sign Up</a></li>
+        {% endif %}
     </ul>
 </footer>
