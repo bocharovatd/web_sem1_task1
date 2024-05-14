@@ -1,35 +1,52 @@
+{% load static %}
 <article class="card mb-3 w-100">
-            <div class="row g-0">
-                <div class="col-2 p-2">
-                    <div class="w-100 mb-3">
-                        <img
-                                src="{{ item.user.avatar.url }}"
-                                class="img-fluid rounded"
-                                alt="..."
-                        />
-                    </div>
-                    <div class="input-group flex-nowrap">
-                        <input type="number" value={{ item.questionlike_set.count }} class="form-control"/>
-                    </div>
+    <div class="row g-0">
+        <div class="col-2 p-2">
+            <div class="w-100 mb-3">
+                <img
+                        src="{{ item.user.avatar.url }}"
+                        class="img-fluid rounded"
+                        alt="..."
+                />
+            </div>
+            {% if user.is_authenticated %}
+                <div class="col text-center">
+                    <button class="btn btn-success btn-sm like-button"
+                            data-type="like"
+                            data-object="question"
+                            data-objectid="{{ item.id }}">
+                        <img src="{% static "images/like.png" %}" width="20"/> <span
+                            class="like-counter">{{ item.questionscore_set.likes.count }}</span>
+                    </button>
+                    <button class="btn btn-danger btn-sm dislike-button"
+                            data-type="dislike"
+                            data-object="question"
+                            data-objectid="{{ item.id }}">
+                        <img src="{% static "images/dislike.png" %}"
+                             width="20"/> <span
+                            class="dislike-counter">{{ item.questionscore_set.dislikes.count }}</span>
+                    </button>
                 </div>
-                <div class="col">
-                    <div class="card-body me-5">
-                        <h5 class="card-title">
-                            <a href="{% url 'question' item.id %}">{{ item.title }}</a>
-                        </h5>
-                        <p class="card-text">
-                            {{ item.text }}
-                        </p>
-                        <div class="row">
-                            <a class="col-4" href="{% url 'question' item.id %}">answers ({{ item.answer_set.count }})</a>
-                            <div class="col-8">
-                                <span>Tags: </span>
-                                {% for tag in item.tag_set.all %}
-                                    <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
-                                {% endfor  %}
-                            </div>
-                        </div>
+            {% endif %}
+        </div>
+        <div class="col">
+            <div class="card-body me-5">
+                <h5 class="card-title">
+                    <a href="{% url 'question' item.id %}">{{ item.title }}</a>
+                </h5>
+                <p class="card-text">
+                    {{ item.text }}
+                </p>
+                <div class="row">
+                    <a class="col-4" href="{% url 'question' item.id %}">answers ({{ item.answer_set.count }})</a>
+                    <div class="col-8">
+                        <span>Tags: </span>
+                        {% for tag in item.tag_set.all %}
+                            <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
-        </article>
+        </div>
+    </div>
+</article>

@@ -1,8 +1,9 @@
 {% extends "layouts/base.html" %}
+{% load static %}
 
 {% block content %}
     <div class="col-8">
-        <article class="mb-3 border-0">
+        <article class="card mb-3 border-0">
             <div class="row g-0">
                 <div class="col-3">
                     <div class="w-100 mb-3">
@@ -12,12 +13,27 @@
                                 alt="..."
                         />
                     </div>
-                    <div class="input-group flex-nowrap">
-                        <input type="number" value={{ question.questionlike_set.count }} class="form-control"/>
-                    </div>
+                    {% if user.is_authenticated %}
+                        <div class="col text-center">
+                            <button class="btn btn-success like-button"
+                                    data-type="like"
+                                    data-object="question"
+                                    data-objectid="{{ question.id }}">
+                                <img src="{% static "images/like.png" %}" width="20"/>
+                                <span class="like-counter">{{ question.questionscore_set.likes.count }}</span>
+                            </button>
+                            <button class="btn btn-danger dislike-button"
+                                    data-type="dislike"
+                                    data-object="question"
+                                    data-objectid="{{ question.id }}">
+                                <img src="{% static "images/dislike.png" %}" width="20"/>
+                                <span class="dislike-counter"> {{ question.questionscore_set.dislikes.count }}</span>
+                            </button>
+                        </div>
+                    {% endif %}
                 </div>
                 <div class="col my-0 ps-4">
-                    <div class="card-body">
+                    <div class="card-body p-0">
                         <h5 class="card-title">
                             <h3 class="mb-3">{{ question.title }}</h3>
                         </h5>

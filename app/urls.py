@@ -12,6 +12,8 @@ urlpatterns = [
     path('settings/', views.settings, name='settings'),
     path('tag/<str:tag_name>/', views.tag, name='tag'),
     path('member/<str:member_name>/', views.member, name='member'),
+    path('vote/', views.vote, name='vote'),
+    path('mark_as_correct/', views.mark_as_correct, name='mark_as_correct'),
 ]
 
 handler404 = 'app.views.error_404_view'

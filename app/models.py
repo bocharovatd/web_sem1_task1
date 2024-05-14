@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Count
+from django.db.models import Count, Sum
 
 
 class ProfileManager(models.Manager):
@@ -33,11 +33,25 @@ class Question(models.Model):
     objects = QuestionManager()
 
 
-class QuestionLike(models.Model):
+class ScoreManager(models.Manager):
+    def likes(self):
+        return self.get_queryset().filter(type__gt=0)
+
+    def dislikes(self):
+        return self.get_queryset().filter(type__lt=0)
+
+    def sum_rating(self):
+        return self.get_queryset().aggregate(Sum('type')).get('type__sum') or 0
+
+
+class QuestionScore(models.Model):
+    TYPE = {1: 'like', -1: 'dislike'}
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+    type = models.IntegerField(choices=TYPE)
+    objects = ScoreManager()
 
     class Meta:
         unique_together = ('user', 'question')
@@ -47,16 +61,19 @@ class Answer(models.Model):
     text = models.TextField()
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    correct_count = models.IntegerField(default=0)
+    is_correct = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
 
 
-class AnswerLike(models.Model):
+class AnswerScore(models.Model):
+    TYPE = {1: 'like', -1: 'dislike'}
     answer = models.ForeignKey(Answer, on_delete=models.CASCADE)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
+    type = models.IntegerField(choices=TYPE)
+    objects = ScoreManager()
 
     class Meta:
         unique_together = ('user', 'answer')
