@@ -9,6 +9,7 @@
     <link href="{% static 'bootstrap/bootstrap.css' %}" rel="stylesheet">
     <script src="{% static 'bootstrap/bootstrap.bundle.js' %}"></script>
     <title>Document</title>
+    {% csrf_token %}
 </head>
 <body style="height: 100%;">
 
@@ -23,6 +24,7 @@
 </main>
 
 {% include "layouts/footer.html" %}
-
+<script src="{% static 'js/vote.js' %}"></script>
+<script src="{% static 'js/mark_as_correct.js' %}"></script>
 </body>
 </html>

@@ -1,11 +1,13 @@
 # from django.http import HttpResponse
 from django.contrib import auth, messages
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.decorators import login_required
+
+import json
 
 from app.forms import *
 from app.models import *
@@ -27,6 +29,16 @@ def index(request):
                   context={"page_obj": page_obj,
                            "best_members": Profile.objects.get_top(),
                            "popular_tags": Tag.objects.get_top()})
+
+
+@login_required(login_url='login', redirect_field_name='continue')
+@require_http_methods(['POST'])
+def vote(request):
+    body = json.loads(request.body)
+    vote_form = VoteForm(request.user, body)
+    if vote_form.is_valid():
+        body['likes_count'], body['dislikes_count'] = vote_form.save()
+    return JsonResponse(body)
 
 
 def hot(request):
@@ -59,6 +71,17 @@ def question(request, question_id):
                            "best_members": Profile.objects.get_top(),
                            "popular_tags": Tag.objects.get_top(),
                            "form": answer_form})
+
+
+@login_required(login_url='login', redirect_field_name='continue')
+@require_http_methods(['POST'])
+def mark_as_correct(request):
+    print(1)
+    body = json.loads(request.body)
+    answer = get_object_or_404(Answer, pk=body['answer_id'])
+    answer.is_correct = not answer.is_correct
+    answer.save()
+    return JsonResponse(body)
 
 
 @login_required(login_url='login', redirect_field_name='continue')

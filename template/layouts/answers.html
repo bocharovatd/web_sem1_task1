@@ -1,3 +1,4 @@
+{% load static %}
 <article class="card mb-3 w-100" id="{{ item.id }}">
     <div class="row g-0">
         <div class="col-2 p-2">
@@ -8,8 +9,23 @@
                         alt="..."
                 />
             </div>
-            <div class="input-group flex-nowrap">
-                <input type="number" value={{ item.answerlike_set.count }} class="form-control"/>
+            <div class="col text-center">
+                <button class="btn btn-success btn-sm like-button"
+                        data-type="like"
+                        data-object="answer"
+                        data-objectid="{{ item.id }}"
+                        {% if not request.user.is_authenticated %} disabled {% endif %}>
+                    <img src="{% static "images/like.png" %}" width="20"/>
+                    <span class="like-counter">{{ item.answerscore_set.likes.count }}</span>
+                </button>
+                <button class="btn btn-danger btn-sm dislike-button"
+                        data-type="dislike"
+                        data-object="answer"
+                        data-objectid="{{ item.id }}"
+                        {% if not request.user.is_authenticated %} disabled {% endif %}>
+                    <img src="{% static "images/dislike.png" %}" width="20"/>
+                    <span class="dislike-counter"> {{ item.answerscore_set.dislikes.count }}</span>
+                </button>
             </div>
         </div>
         <div class="col">
@@ -19,7 +35,10 @@
                 </p>
                 <div class="row mx-0">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1">
+                        <input class="form-check-input is-correct-input" type="checkbox" value="" id="flexCheckDefault1"
+                               data-answerid="{{ item.id }}"
+                                {% if item.is_correct %} checked {% endif %}
+                                {% if request.user != question.user.user %} disabled {% endif %}>
                         <label class="form-check-label" for="flexCheckDefault1">
                             Correct!
                         </label>

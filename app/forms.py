@@ -1,5 +1,5 @@
 from django import forms
-from app.models import Profile, Question, Tag, Answer
+from app.models import Profile, Question, Tag, Answer, QuestionScore, AnswerScore
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -118,3 +118,46 @@ class AnswerForm(forms.ModelForm):
         if commit:
             answer.save()
         return answer.id
+
+
+class VoteForm(forms.Form):
+    TYPES = {'like': 1, 'dislike': -1}
+    OBJECTS = {'question': 'question', 'answer': 'answer'}
+    type = forms.ChoiceField(choices=TYPES.items())
+    object = forms.ChoiceField(choices=OBJECTS.items())
+    object_id = forms.IntegerField()
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def save(self):
+        data = self.cleaned_data
+        if data['type'] == 'like':
+            type = 1
+        else:
+            type = -1
+        if data['object'] == 'question':
+            question = Question.objects.get(id=data['object_id'])
+            try:
+                question_score = QuestionScore.objects.get(question=question, user=self.user.profile)
+                if question_score.type is not type:
+                    question_score.type = type
+                    question_score.save()
+                else:
+                    question_score.delete()
+            except QuestionScore.DoesNotExist:
+                QuestionScore.objects.create(question=question, type=type, user=self.user.profile)
+            return [question.questionscore_set.likes().count(), question.questionscore_set.dislikes().count()]
+        else:
+            answer = Answer.objects.get(id=data['object_id'])
+            try:
+                answer_score = AnswerScore.objects.get(answer=answer, user=self.user.profile)
+                if answer_score.type is not type:
+                    answer_score.type = type
+                    answer_score.save()
+                else:
+                    answer_score.delete()
+            except AnswerScore.DoesNotExist:
+                AnswerScore.objects.create(answer=answer, type=type, user=self.user.profile)
+            return [answer.answerscore_set.likes().count(), answer.answerscore_set.dislikes().count()]

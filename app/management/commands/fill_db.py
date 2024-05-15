@@ -61,18 +61,20 @@ class Command(BaseCommand):
         for _ in range(options["ratio"] * 200):
             question = random.choice(questions)
             user = random.choice(users)
+            type = 1
             if question not in questions_likes_questions and user not in questions_likes_users:
                 questions_likes_questions.append(question)
                 questions_likes_users.append(user)
-                questions_likes.append(QuestionLike(question=question, user=user))
+                questions_likes.append(QuestionScore(question=question, user=user, type=type))
             answer = random.choice(answers)
             user = random.choice(users)
+            type = 1
             if answer not in answers_likes_answers and user not in answers_likes_users:
                 answers_likes_answers.append(answer)
                 answers_likes_users.append(user)
-                answers_likes.append(AnswerLike(answer=answer, user=user))
-        QuestionLike.objects.bulk_create(questions_likes)
-        AnswerLike.objects.bulk_create(answers_likes)
+                answers_likes.append(AnswerScore(answer=answer, user=user, type=type))
+        QuestionScore.objects.bulk_create(questions_likes)
+        AnswerScore.objects.bulk_create(answers_likes)
 
         self.stdout.write(
             self.style.SUCCESS('db successfully created')
