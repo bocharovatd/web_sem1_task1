@@ -9,25 +9,25 @@
                         alt="..."
                 />
             </div>
-            {% if user.is_authenticated %}
-                <div class="col text-center">
-                    <button class="btn btn-success btn-sm like-button"
-                            data-type="like"
-                            data-object="question"
-                            data-objectid="{{ item.id }}">
-                        <img src="{% static "images/like.png" %}" width="20"/> <span
-                            class="like-counter">{{ item.questionscore_set.likes.count }}</span>
-                    </button>
-                    <button class="btn btn-danger btn-sm dislike-button"
-                            data-type="dislike"
-                            data-object="question"
-                            data-objectid="{{ item.id }}">
-                        <img src="{% static "images/dislike.png" %}"
-                             width="20"/> <span
-                            class="dislike-counter">{{ item.questionscore_set.dislikes.count }}</span>
-                    </button>
-                </div>
-            {% endif %}
+            <div class="col text-center">
+                <button class="btn btn-success btn-sm like-button"
+                        data-type="like"
+                        data-object="question"
+                        data-objectid="{{ item.id }}"
+                        {% if not request.user.is_authenticated %} disabled {% endif %}>
+                    <img src="{% static "images/like.png" %}" width="20"/> <span
+                        class="like-counter">{{ item.questionscore_set.likes.count }}</span>
+                </button>
+                <button class="btn btn-danger btn-sm dislike-button"
+                        data-type="dislike"
+                        data-object="question"
+                        data-objectid="{{ item.id }}"
+                        {% if not request.user.is_authenticated %} disabled {% endif %}>
+                    <img src="{% static "images/dislike.png" %}"
+                         width="20"/> <span
+                        class="dislike-counter">{{ item.questionscore_set.dislikes.count }}</span>
+                </button>
+            </div>
         </div>
         <div class="col">
             <div class="card-body me-5">

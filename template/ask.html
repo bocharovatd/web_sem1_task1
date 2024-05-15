@@ -27,7 +27,7 @@
                                   class="form-control {% if field.errors %} is-invalid {% endif %}"
                                   id="{{ field.id_for_label }}"
                                   rows="{{ field.field.widget.attrs.rows }}"
-                                {% if field.field.required %} required {% endif %}></textarea>
+                                {% if field.field.required %} required {% endif %}>{% if field.value != None %}{{ field.value }} {% endif %}</textarea>
                         {% if field.errors %}
                             <div class="list-unstyled text-danger">
                                 {% for error in field.errors %}

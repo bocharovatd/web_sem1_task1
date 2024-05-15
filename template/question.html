@@ -13,24 +13,24 @@
                                 alt="..."
                         />
                     </div>
-                    {% if user.is_authenticated %}
-                        <div class="col text-center">
-                            <button class="btn btn-success like-button"
-                                    data-type="like"
-                                    data-object="question"
-                                    data-objectid="{{ question.id }}">
-                                <img src="{% static "images/like.png" %}" width="20"/>
-                                <span class="like-counter">{{ question.questionscore_set.likes.count }}</span>
-                            </button>
-                            <button class="btn btn-danger dislike-button"
-                                    data-type="dislike"
-                                    data-object="question"
-                                    data-objectid="{{ question.id }}">
-                                <img src="{% static "images/dislike.png" %}" width="20"/>
-                                <span class="dislike-counter"> {{ question.questionscore_set.dislikes.count }}</span>
-                            </button>
-                        </div>
-                    {% endif %}
+                    <div class="col text-center">
+                        <button class="btn btn-success like-button"
+                                data-type="like"
+                                data-object="question"
+                                data-objectid="{{ question.id }}"
+                                {% if not request.user.is_authenticated %} disabled {% endif %}>
+                            <img src="{% static "images/like.png" %}" width="20"/>
+                            <span class="like-counter">{{ question.questionscore_set.likes.count }}</span>
+                        </button>
+                        <button class="btn btn-danger dislike-button"
+                                data-type="dislike"
+                                data-object="question"
+                                data-objectid="{{ question.id }}"
+                                {% if not request.user.is_authenticated %} disabled {% endif %}>
+                            <img src="{% static "images/dislike.png" %}" width="20"/>
+                            <span class="dislike-counter"> {{ question.questionscore_set.dislikes.count }}</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="col my-0 ps-4">
                     <div class="card-body p-0">
