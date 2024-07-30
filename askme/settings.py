@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'django_bootstrap5',
+    'django.contrib.postgres'
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'app.context_processors.global_settings'
             ],
         },
     },
@@ -143,3 +145,15 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = BASE_DIR / 'upload/'
 MEDIA_URL = 'upload/'
+
+CENTRIFUGO_SECRET = "my_secret"
+CENTRIFUGO_WS_URL = "ws://localhost:8010/connection/websocket"
+SENTRIGFUGO_API_URL = "http://localhost:8010/api"
+SENTRIGFUGO_API_KEY = "my_api_key"
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": "/var/tmp/askme_cache",
+    }
+}

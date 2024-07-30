@@ -1,11 +1,29 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Q
+from django.utils import timezone
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
 
 
 class ProfileManager(models.Manager):
     def get_top(self):
-        return self.annotate(nanswers=Count('answer')).order_by('-nanswers')[:5]
+        # 10 users who asked the most popular questions or gave the most popular answers in the last week
+        last_week = timezone.now() - timezone.timedelta(days=7)
+        return self.filter(
+            Q(question__created_at__gte=last_week) |
+            Q(answer__created_at__gte=last_week)
+        ).distinct(
+        ).annotate(
+            nquestionlikes=Count(
+                'question__questionscore',
+                filter=Q(question__questionscore__type=1, question__created_at__gte=last_week),
+            ),
+            nanswerlikes=Count(
+                'answer__answerscore',
+                filter=Q(answer__answerscore__type=1, answer__created_at__gte=last_week),
+            )
+        ).order_by('-nquestionlikes', '-nanswerlikes')[:10]
 
 
 class Profile(models.Model):
@@ -31,6 +49,10 @@ class Question(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True, null=True)
     objects = QuestionManager()
+    search_vector = SearchVectorField(null=True)
+
+    class Meta:
+        indexes = [GinIndex(fields=["search_vector", ]), ]
 
 
 class ScoreManager(models.Manager):
@@ -81,7 +103,13 @@ class AnswerScore(models.Model):
 
 class TagManager(models.Manager):
     def get_top(self):
-        return self.annotate(nquestions=Count('questions')).order_by('-nquestions')[:8]
+        # 10 tags with the most amount of questions in the last 3 months
+        three_months = timezone.now() - timezone.timedelta(days=90)
+        return self.annotate(
+            nquestions=Count(
+                'questions',
+                filter=Q(questions__created_at__gte=three_months))
+        ).order_by('-nquestions')[:10]
 
 
 class Tag(models.Model):

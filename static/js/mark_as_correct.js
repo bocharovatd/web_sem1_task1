@@ -13,11 +13,28 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+//
+// const isCorrectInputs = document.querySelectorAll('.is-correct-input')
+//
+// for (const isCorrectInput of isCorrectInputs) {
+//     isCorrectInput.addEventListener('click', () => {
+//         const request = new Request('/mark_as_correct/', {
+//             method: 'post',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'X-CSRFToken': getCookie('csrftoken')
+//             },
+//             body: JSON.stringify({
+//                 answer_id: isCorrectInput.dataset.answerid,
+//             })
+//         })
+//         fetch(request)
+//             .then((response) => response.json())
+//     })
+// }
 
-const isCorrectInputs = document.querySelectorAll('.is-correct-input')
-
-for (const isCorrectInput of isCorrectInputs) {
-    isCorrectInput.addEventListener('click', () => {
+function addEventListenersToInput(input) {
+    input.addEventListener('click', () => {
         const request = new Request('/mark_as_correct/', {
             method: 'post',
             headers: {
@@ -25,10 +42,15 @@ for (const isCorrectInput of isCorrectInputs) {
                 'X-CSRFToken': getCookie('csrftoken')
             },
             body: JSON.stringify({
-                answer_id: isCorrectInput.dataset.answerid,
+                answer_id: input.dataset.answerid,
             })
-        })
+        });
         fetch(request)
             .then((response) => response.json())
-    })
+    });
+}
+
+const isCorrectInputs = document.querySelectorAll('.is-correct-input');
+for (const isCorrectInput of isCorrectInputs) {
+    addEventListenersToInput(isCorrectInput);
 }

@@ -14,6 +14,8 @@ urlpatterns = [
     path('member/<str:member_name>/', views.member, name='member'),
     path('vote/', views.vote, name='vote'),
     path('mark_as_correct/', views.mark_as_correct, name='mark_as_correct'),
+    path('search/suggestions/', views.search_suggestions, name='search_suggestions'),
+    path('search/global/', views.search_global, name='search_global'),
 ]
 
 handler404 = 'app.views.error_404_view'

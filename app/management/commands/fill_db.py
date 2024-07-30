@@ -6,7 +6,7 @@ import random
 
 
 class Command(BaseCommand):
-    help = "Closes the specified poll for voting"
+    # help = "Closes the specified poll for voting"
 
     def add_arguments(self, parser):
         parser.add_argument("ratio", type=int, help="enter ratio which influences the size of created db")

@@ -55,9 +55,18 @@
         {% if page_obj %}
             <hr style="border-width: 3px;">
         {% endif %}
-        {% for answer in page_obj %}
-            {% include "layouts/answers.html" with item=answer %}
-        {% endfor %}
+        <div id="answer-container">
+            <div id="answer-element" style="display: none">
+                <div id="hidden-data" style="display: none;"
+                     data-request_user_id="{{ request.user.id }}"
+                     data-item_user_id="{{ question.user.user.id }}">
+                </div>
+                {% include "layouts/answers.html" with item=example_answer %}
+            </div>
+            {% for answer in page_obj %}
+                {% include "layouts/answers.html" with item=answer %}
+            {% endfor %}
+        </div>
         <hr style="border-width: 3px;">
         <form method="post" action="">
             {% csrf_token %}
@@ -85,4 +94,45 @@
         </form>
         {% include "layouts/pagination.html" %}
     </div>
+
+    <script src="https://unpkg.com/centrifuge@5.0.1/dist/centrifuge.js"></script>
+    <script type="text/javascript">
+        const centrifuge = new Centrifuge("{{ centrifugo.url }}", {
+            token: "{{ centrifugo.token }}"
+        });
+
+        centrifuge.on('connecting', function (ctx) {
+            console.log(`connecting: ${ctx.code}, ${ctx.reason}`);
+        }).on('connected', function (ctx) {
+            console.log(`connected over ${ctx.transport}`);
+        }).on('disconnected', function (ctx) {
+            console.log(`disconnected: ${ctx.code}, ${ctx.reason}`);
+        }).connect();
+
+        const sub = centrifuge.newSubscription("{{ ws_channel_name }}");
+
+        sub.on('publication', function (ctx) {
+            const answerContainer = document.getElementById('answer-container');
+            const answerElement = document.getElementById('answer-element');
+            const clonedElement = answerElement.cloneNode(true);
+            clonedElement.style.display = "contents";
+            clonedElement.querySelector('.text').innerHTML = ctx.data.text;
+            clonedElement.querySelector('.avatar').src = ctx.data.avatar;
+            clonedElement.querySelector('.card').id = ctx.data.answer_id;
+            clonedElement.querySelector('.like-button').dataset.objectid = ctx.data.answer_id;
+            clonedElement.querySelector('.dislike-button').dataset.objectid = ctx.data.answer_id;
+            clonedElement.querySelector('.like-counter').innerHTML = 0;
+            clonedElement.querySelector('.dislike-counter').innerHTML = 0;
+            clonedElement.querySelector('.is-correct-input').dataset.answerid = ctx.data.answer_id;
+            clonedElement.querySelector('.is-correct-input').checked = false;
+            const hiddenData = document.getElementById('hidden-data');
+            const requestUserId = hiddenData.dataset.request_user_id;
+            const itemUserId = hiddenData.dataset.item_user_id;
+            clonedElement.querySelector('.is-correct-input').disabled = (requestUserId !== itemUserId);
+            addEventListenersToCard(clonedElement.querySelector('.card'));
+            addEventListenersToInput(clonedElement.querySelector('.is-correct-input'));
+            answerContainer.insertBefore(clonedElement, answerContainer.firstChild);
+        }).subscribe();
+    </script>
 {% endblock %}
+
