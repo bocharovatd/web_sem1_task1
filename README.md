@@ -1,10 +1,4 @@
-
 # Askme service
-
-### Centrifugo
-```
-./centrifugo --config=confug.json
-```
 
 ### Настройки nginx
 ```
@@ -52,6 +46,11 @@ server {
 ```
 * * * * * cd /home/user/projects/vk/web_task1 && source venv/bin/activate && python manage.py generate_popular_tags
 * * * * * cd /home/user/projects/vk/web_task1 && source venv/bin/activate && python manage.py generate_best_members
+```
+
+### Centrifugo
+```
+./centrifugo --config=confug.json
 ```
 
 ### Запуск через gunicorn
