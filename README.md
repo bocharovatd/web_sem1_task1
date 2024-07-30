@@ -1,9 +1,9 @@
 
 # Askme service
 
-### Centrifugo (app/centrifugo)
+### Centrifugo
 ```
-.centrifugo --config=confug.json
+./centrifugo --config=confug.json
 ```
 
 ### Настройки nginx
