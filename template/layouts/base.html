@@ -6,8 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{% static 'bootstrap/bootstrap.css' %}" rel="stylesheet">
+    {#    <script src="{% static 'bootstrap/jquery.min.js' %}"></script>#}
+    {#    <script src="{% static 'bootstrap/popper.min.js' %}"></script>#}
     <script src="{% static 'bootstrap/bootstrap.bundle.js' %}"></script>
+    <link href="{% static 'bootstrap/bootstrap.css' %}" rel="stylesheet">
     <title>Document</title>
     {% csrf_token %}
 </head>
@@ -19,12 +21,13 @@
     <div class="row">
         {% block content %}
         {% endblock %}
-        {% include "layouts/tags_members.html" with tags=popular_tags%}
+        {% include "layouts/tags_members.html" with tags=popular_tags %}
     </div>
 </main>
 
 {% include "layouts/footer.html" %}
 <script src="{% static 'js/vote.js' %}"></script>
 <script src="{% static 'js/mark_as_correct.js' %}"></script>
+<script src="{% static 'js/search.js' %}"></script>
 </body>
 </html>

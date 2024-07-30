@@ -14,14 +14,46 @@ function getCookie(name) {
     return cookieValue;
 }
 
-const cards = document.querySelectorAll('.card')
+//
+// const cards = document.querySelectorAll('.card')
+//
+// for (const card of cards) {
+//     const likeButton = card.querySelector('.like-button')
+//     const dislikeButton = card.querySelector('.dislike-button')
+//     const likeCounter = card.querySelector('.like-counter')
+//     const dislikeCounter = card.querySelector('.dislike-counter')
+//     const buttons = [likeButton, dislikeButton]
+//     for (const button of buttons) {
+//         button.addEventListener('click', () => {
+//             const request = new Request('/vote/', {
+//                 method: 'post',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                     'X-CSRFToken': getCookie('csrftoken')
+//                 },
+//                 body: JSON.stringify({
+//                     type: button.dataset.type,
+//                     object: button.dataset.object,
+//                     object_id: button.dataset.objectid,
+//                 })
+//             })
+//             fetch(request)
+//                 .then((response) => response.json())
+//                 .then((data) => {
+//                     likeCounter.innerHTML = data.likes_count;
+//                     dislikeCounter.innerHTML = data.dislikes_count
+//                 })
+//         })
+//     }
+// }
 
-for (const card of cards) {
-    const likeButton = card.querySelector('.like-button')
-    const dislikeButton = card.querySelector('.dislike-button')
-    const likeCounter = card.querySelector('.like-counter')
-    const dislikeCounter = card.querySelector('.dislike-counter')
-    const buttons = [likeButton, dislikeButton]
+function addEventListenersToCard(card) {
+    const likeButton = card.querySelector('.like-button');
+    const dislikeButton = card.querySelector('.dislike-button');
+    const likeCounter = card.querySelector('.like-counter');
+    const dislikeCounter = card.querySelector('.dislike-counter');
+    const buttons = [likeButton, dislikeButton];
+
     for (const button of buttons) {
         button.addEventListener('click', () => {
             const request = new Request('/vote/', {
@@ -35,13 +67,19 @@ for (const card of cards) {
                     object: button.dataset.object,
                     object_id: button.dataset.objectid,
                 })
-            })
+            });
+
             fetch(request)
                 .then((response) => response.json())
                 .then((data) => {
                     likeCounter.innerHTML = data.likes_count;
-                    dislikeCounter.innerHTML = data.dislikes_count
-                })
-        })
+                    dislikeCounter.innerHTML = data.dislikes_count;
+                });
+        });
     }
+}
+
+const cards = document.querySelectorAll('.card');
+for (const card of cards) {
+    addEventListenersToCard(card);
 }

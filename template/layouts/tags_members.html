@@ -2,22 +2,27 @@
     <h2>Popular Tags</h2>
     <div class="row">
         <div class="col">
-            <a href="{% url 'tag' tags.0.name %}"><span class="badge text-bg-primary me-2 mb-2">{{ tags.0.name }}</span></a>
-            <a href="{% url 'tag' tags.1.name %}"><span class="badge text-bg-success me-2 mb-2">{{ tags.1.name }}</span></a>
-            <a href="{% url 'tag' tags.2.name %}"><span class="badge text-bg-danger me-2 mb-2">{{ tags.2.name }}</span></a>
-            <a href="{% url 'tag' tags.3.name %}"><span class="badge text-bg-warning me-2 mb-2">{{ tags.3.name }}</span></a>
-            <a href="{% url 'tag' tags.4.name %}"><span
-                    class="badge text-bg-info me-2 mb-2">{{ tags.4.name }}</span></a>
-            <a href="{% url 'tag' tags.5.name %}"><span
-                    class="badge text-bg-dark me-2 mb-2">{{ tags.5.name }}</span></a>
-            <a href="{% url 'tag' tags.6.name %}"><span class="badge text-bg-danger me-2 mb-2">{{ tags.6.name }}</span></a>
-            <a href="{% url 'tag' tags.7.name %}"><span class="badge text-bg-warning me-2 mb-2">{{ tags.7.name }}</span></a>
+            {% for tag in tags %}
+                <a href="{% url 'tag' tag.name %}"><span
+                        class="badge text-bg-primary me-2 mb-2">{{ tag.name }}</span></a>
+            {% endfor %}
+            {#                                    <a href="{% url 'tag' tags.0.name %}"><span#}
+            {#                                            class="badge {{ "text-bg-primary" }} me-2 mb-2">{{ tags.0.name }}</span></a>#}
+            {#                                    <a href="{% url 'tag' tags.1.name %}"><span class="badge text-bg-success me-2 mb-2">{{ tags.1.name }}</span></a>#}
+            {#                                    <a href="{% url 'tag' tags.2.name %}"><span class="badge text-bg-danger me-2 mb-2">{{ tags.2.name }}</span></a>#}
+            {#                                    <a href="{% url 'tag' tags.3.name %}"><span class="badge text-bg-warning me-2 mb-2">{{ tags.3.name }}</span></a>#}
+            {#                                    <a href="{% url 'tag' tags.4.name %}"><span#}
+            {#                                            class="badge text-bg-info me-2 mb-2">{{ tags.4.name }}</span></a>#}
+            {#                                    <a href="{% url 'tag' tags.5.name %}"><span#}
+            {#                                            class="badge text-bg-dark me-2 mb-2">{{ tags.5.name }}</span></a>#}
+            {#                                    <a href="{% url 'tag' tags.6.name %}"><span class="badge text-bg-danger me-2 mb-2">{{ tags.6.name }}</span></a>#}
+            {#                                    <a href="{% url 'tag' tags.7.name %}"><span class="badge text-bg-warning me-2 mb-2">{{ tags.7.name }}</span></a>#}
         </div>
     </div>
     <h2 class="mt-5">Best Members</h2>
     <div>
         {% for member in best_members %}
-            <a href="{% url 'member' member %}" class="d-block mb-2">{{ member }}</a>
+            <a href="{% url 'member' member.user.username %}" class="d-block mb-2">{{ member.user.username }}</a>
         {% endfor %}
     </div>
 </div>

@@ -1,16 +1,30 @@
 <nav class="navbar navbar-light">
     <div class="container-sm-fluid container-lg">
         <h1>AskPupkin</h1>
-        <form class="d-flex" role="search">
-            <input
-                    class="form-control me-2"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-            />
-            <button class="btn btn-success" type="submit">Ask!</button>
+        <form method="get" action="{% url 'search_global' %}" class="d-flex" role="search">
+            <div class="dropdown">
+                <input
+                        class="form-control me-2"
+                        id="search-input"
+                        type="search"
+                        name="q"
+                        value="{{ search_value }}"
+                        placeholder="Search"
+                        aria-label="Search"
+                        autocomplete="off"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                />
+                <ul class="dropdown-menu">
+                    <li class="dropdown-item-text">Questions containing the entered words</li>
+                    <hr class="m-0" style="border-width: 1px;">
+                    <div id="search-suggestions">
+                        {#                    <li><a class="dropdown-item" href="#">Отделенная ссылка</a></li>#}
+                    </div>
+                </ul>
+            </div>
+            <button class="btn btn-success" type="submit" href="{% url 'search_global' %}">Search!</button>
         </form>
-
         <div class="d-flex justify-content-between gap-3">
             {% if request.user.is_authenticated %}
                 <img src="{{ request.user.profile.avatar.url }}" class="rounded" width="50" height="50"/>
@@ -29,6 +43,7 @@
             {% endif %}
             </div>
         </div>
+    </div>
 </nav>
 
 <hr class="m-0" style="border-width: 3px;">
